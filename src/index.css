@@ -4,6 +4,8 @@ body {
   font-family: "Baloo Bhai 2", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 0.5rem 1rem;
+  overflow-x: hidden;
 }
 
 code {
