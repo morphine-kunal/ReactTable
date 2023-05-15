@@ -1,0 +1,28 @@
+.table-container {
+  border-radius: 12px;
+  border: 1px solid #949494;
+  overflow: hidden;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border-radius: 8px;
+}
+
+td {
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+}
+
+table tr:nth-child(even) {
+  background-color: #e5e5fa5a;
+}
+
+table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #ffffff;
+  font-weight: 500;
+  color: #7e7e7e;
+}
