@@ -11,24 +11,23 @@
 }
 .tabs {
   display: flex;
-  margin-bottom: 12px;
+  margin-bottom: 30px;
 }
 .tab_items {
   width: 80px;
   text-align: center;
-  border: 1px solid black;
+  border: 1px solid #ddd;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   padding: 2px 7px;
-}
-.tab_items:first-child{
-  border-radius: 4px 0px 0px 4px;
-}
-.tab_items:last-child{
-  border-radius: 0px 4px 4px 0px;
-}
-.tab_items:hover{
-  font-weight: 500;
   cursor: pointer;
 }
-.tab_items:active{
-  font-weight: 700;
+.tab_items:first-child {
+  border-radius: 4px 0px 0px 4px;
+}
+.tab_items:last-child {
+  border-radius: 0px 4px 4px 0px;
+}
+
+.tab_items:nth-child(2) {
+  font-weight: 500;
 }
