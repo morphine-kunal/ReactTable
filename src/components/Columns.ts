@@ -17,7 +17,7 @@ export const COLUMNS = [
     },
     {
       Header: "Last Login",
-      accessor: "last_login",
+      accessor: "Last_login",
     },
   ];
   
