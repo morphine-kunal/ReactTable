@@ -42,22 +42,24 @@
 
 .download-btn {
   border: 1px solid #7e7e7e;
-  font-size: 1rem;
+  font-size: 0.8rem;
   border-radius: 4px;
   background-color: transparent;
   padding: 4px 6px;
   color: #454444;
   margin-right: 10px;
   cursor: pointer;
+  font-weight: 600;
 }
 .addUser-btn {
   border: 1px solid rgb(1, 120, 255);
   background-color: rgb(1, 120, 255);
   padding: 4px 6px;
-  font-size: 1rem;
+  font-size: 0.8rem;
   border-radius: 4px;
   color: white;
   cursor: pointer;
+  font-weight: 600;
 }
 
 table {
@@ -139,6 +141,29 @@ table th {
   border-radius: 50%;
   border: none;
   background: transparent;
-  margin-right: 10px;
+  margin-right: 6px;
   cursor: pointer;
+}
+.cloud {
+  position: relative;
+  top: 2px;
+  font-weight: 600;
+}
+.plus {
+  position: relative;
+  top: 2px;
+  z-index: 1;
+  color: #ffffff;
+}
+.delete,
+.edit {
+  width: 40px;
+  height: 40px;
+  color: #4d4d4d;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.delete{
+  margin-left: 15px;
 }

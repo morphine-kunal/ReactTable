@@ -3,6 +3,10 @@ import { useTable, useSortBy, usePagination } from "react-table";
 import MOCK_DATA from "../data/MOCK_DATA.json";
 import { COLUMNS } from "./Columns.ts";
 import "../style/table.css";
+import { BsCloudDownload } from "react-icons/bs";
+import { AiOutlinePlus } from "react-icons/ai";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FiEdit2 } from "react-icons/fi";
 
 const BasicTable = () => {
   const columns = useMemo(() => COLUMNS, []);
@@ -27,7 +31,6 @@ const BasicTable = () => {
     prepareRow,
     nextPage,
     pageOptions,
-    pageCount,
     gotoPage,
     canNextPage,
     canPreviousPage,
@@ -46,8 +49,18 @@ const BasicTable = () => {
           <p>Manage your team members ans their account permission here.</p>
         </div>
         <div className="btn-container">
-          <button className="download-btn">Download CSV</button>
-          <button className="addUser-btn">Add User</button>
+          <button className="download-btn">
+            <span>
+              <BsCloudDownload className="cloud" />
+            </span>{" "}
+            Download CSV
+          </button>
+          <button className="addUser-btn">
+            <span>
+              <AiOutlinePlus className="plus" />
+            </span>{" "}
+            Add user
+          </button>
         </div>
       </div>
       <table {...getTableProps}>
@@ -98,6 +111,15 @@ const BasicTable = () => {
                       <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                     );
                 })}
+
+                <td className="icon-container">
+                  <button className="delete">
+                    <RiDeleteBin6Line />
+                  </button>
+                  <button className="edit">
+                    <FiEdit2 />
+                  </button>
+                </td>
               </tr>
             );
           })}
