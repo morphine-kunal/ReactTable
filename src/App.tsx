@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import BasicTable from "./components/BasicTable";
-import AddProfileForm from "./components/Forms/AddProfileForm";
+import BasicTable from "./components/BasicTable.tsx";
+import AddProfileForm from "./components/Forms/AddProfileForm.tsx";
 import Header from "./components/Header";
 
 function App() {

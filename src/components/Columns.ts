@@ -1,4 +1,14 @@
-export const COLUMNS = [
+import { Column } from "react-table";
+
+type UserData = {
+  id: number;
+  name: string;
+  status: string;
+  role: string;
+  Last_login: string;
+};
+
+export const COLUMNS: Column<UserData>[] = [
     {
       Header: "ID",
       accessor: "id",

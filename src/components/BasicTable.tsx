@@ -8,16 +8,22 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit2 } from "react-icons/fi";
 
-const BasicTable = (props) => {
-  const columns = useMemo(() => COLUMNS, []);
+const BasicTable: React.FC<{ onShow: () => void }> = (props) => {
+
+  type Column = {
+    Header: string;
+    accessor: string;
+  };
+
+  const columns: Column[] = useMemo(() => COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
   const pageSize = 10;
 
   const tableInstance = useTable(
     {
-      columns,
+      columns: columns,
       data,
-      initialState: { pageIndex: 0 },
+      initialState: {},
       pageCount: Math.ceil(data.length / pageSize),
     },
     useSortBy,
@@ -36,7 +42,7 @@ const BasicTable = (props) => {
     canPreviousPage,
     previousPage,
     state: { pageIndex },
-  } = tableInstance;
+  }: any = tableInstance;
 
   return (
     <div className="table-container">
@@ -46,7 +52,7 @@ const BasicTable = (props) => {
             <h4>Users</h4>
             <span>{data.length} users</span>
           </div>
-          <p>Manage your team members ans their account permission here.</p>
+          <p>Manage your team members and their account permission here.</p>
         </div>
         <div className="btn-container">
           <button className="download-btn">
@@ -63,32 +69,30 @@ const BasicTable = (props) => {
           </button>
         </div>
       </div>
-      <table {...getTableProps}>
+      <table {...getTableProps()}>
         <thead>
-          {headerGroups.map((headerGroup) => {
-            return (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                    {column.render("Header")} &nbsp;
-                    <span>
-                      {column.isSorted ? (
-                        column.isSortedDesc ? (
-                          <span>&#x2191;</span>
-                        ) : (
-                          <span>&#x2193;</span>
-                        )
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render("Header")} &nbsp;
+                  <span>
+                    {column.isSorted ? (
+                      column.isSortedDesc ? (
+                        <span>&#x2191;</span>
                       ) : (
-                        ""
-                      )}
-                    </span>
-                  </th>
-                ))}
-              </tr>
-            );
-          })}
+                        <span>&#x2193;</span>
+                      )
+                    ) : (
+                      ""
+                    )}
+                  </span>
+                </th>
+              ))}
+            </tr>
+          ))}
         </thead>
-        <tbody {...getTableBodyProps}>
+        <tbody {...getTableBodyProps()}>
           {page.map((row) => {
             prepareRow(row);
             return (
@@ -106,12 +110,12 @@ const BasicTable = (props) => {
                         {cell.render("Cell")}
                       </td>
                     );
-                  } else
+                  } else {
                     return (
                       <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                     );
+                  }
                 })}
-
                 <td className="icon-container">
                   <button className="delete">
                     <RiDeleteBin6Line />
@@ -134,20 +138,18 @@ const BasicTable = (props) => {
           <span>&larr;</span> Previous
         </button>
         <div>
-          {pageOptions.map((pageNum) => {
-            return (
-              <button
-                key={pageNum}
-                onClick={() => gotoPage(pageNum)}
-                style={{
-                  fontWeight: pageIndex === pageNum ? "bold" : "normal",
-                }}
-                className="page-btn"
-              >
-                {pageNum + 1}
-              </button>
-            );
-          })}
+          {pageOptions.map((pageNum) => (
+            <button
+              key={pageNum}
+              onClick={() => gotoPage(pageNum)}
+              style={{
+                fontWeight: pageIndex === pageNum ? "bold" : "normal",
+              }}
+              className="page-btn"
+            >
+              {pageNum + 1}
+            </button>
+          ))}
         </div>
         <button
           className="next-btn"
