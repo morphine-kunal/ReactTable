@@ -1,6 +1,5 @@
 import React, { MouseEventHandler, useMemo, useState, useEffect } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
-// import MOCK_DATA from "../data/MOCK_DATA.json";
 import { COLUMNS } from "./Columns.ts";
 import "../style/table.css";
 import { BsCloudDownload } from "react-icons/bs";
@@ -12,6 +11,8 @@ import { useQuery } from "react-query";
 
 const fetchData = () =>
   axios.get("https://users-edbd4-default-rtdb.firebaseio.com/users.json");
+
+
 
 const BasicTable: React.FC<{
   onEdit: MouseEventHandler<HTMLButtonElement> | undefined;
@@ -25,15 +26,20 @@ const BasicTable: React.FC<{
 
   const [tableData, setTableData] = useState([]);
 
-  const { data: apiResponse, isLoading, isError, error } = useQuery("name", fetchData);
+  const {
+    data: apiResponse,
+    isLoading,
+    isError,
+    error,
+  } = useQuery("name", fetchData);
 
   useEffect(() => {
     if (apiResponse?.data) {
       console.log(apiResponse.data);
-      const dataArray = Object.values(apiResponse.data)
+      const dataArray = Object.values(apiResponse.data);
       setTableData(dataArray);
     }
-  }, [apiResponse]);
+  }, [fetchData, apiResponse?.data]);
 
   const columns: Column[] = useMemo(() => COLUMNS, []);
   const data = useMemo(() => tableData, [tableData]);
@@ -67,8 +73,8 @@ const BasicTable: React.FC<{
   if (isLoading) {
     return <p>Loading....</p>;
   }
-  if(isError){
-    return <p>{error.message}</p>
+  if (isError) {
+    return <p>{error.message}</p>;
   }
 
   return (
@@ -98,9 +104,9 @@ const BasicTable: React.FC<{
       </div>
       <table {...getTableProps()}>
         <thead>
-          {headerGroups.map((headerGroup) => (
+          {headerGroups.map((headerGroup:any) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
+              {headerGroup.headers.map((column:any) => (
                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {column.render("Header")} &nbsp;
                   <span>
@@ -130,7 +136,11 @@ const BasicTable: React.FC<{
                       <td {...cell.getCellProps()} className="img-name">
                         <div className="img-container">
                           <img
-                            src={cell.row.original.dp ? `${cell.row.original.dp}` : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-yZLjRO-cckbWa-SF-9ikN42WHpRkF_-j0BS-zEm6&s'}
+                            src={
+                              cell.row.original.dp
+                                ? `${cell.row.original.dp}`
+                                : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-yZLjRO-cckbWa-SF-9ikN42WHpRkF_-j0BS-zEm6&s"
+                            }
                             alt="User"
                           />
                         </div>
