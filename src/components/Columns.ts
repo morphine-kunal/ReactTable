@@ -9,10 +9,10 @@ type UserData = {
 };
 
 export const COLUMNS: Column<UserData>[] = [
-    {
-      Header: "ID",
-      accessor: "id",
-    },
+    // {
+    //   Header: "ID",
+    //   accessor: "id",
+    // },
     {
       Header: "Name",
       accessor: "name",

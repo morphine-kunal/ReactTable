@@ -1,27 +1,47 @@
-import React, { useMemo } from "react";
+import React, { MouseEventHandler, useMemo, useState, useEffect } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
-import MOCK_DATA from "../data/MOCK_DATA.json";
+// import MOCK_DATA from "../data/MOCK_DATA.json";
 import { COLUMNS } from "./Columns.ts";
 import "../style/table.css";
 import { BsCloudDownload } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit2 } from "react-icons/fi";
+import axios from "axios";
+import { useQuery } from "react-query";
 
-const BasicTable: React.FC<{ onShow: () => void }> = (props) => {
+const fetchData = () =>
+  axios.get("https://users-edbd4-default-rtdb.firebaseio.com/users.json");
 
+const BasicTable: React.FC<{
+  onEdit: MouseEventHandler<HTMLButtonElement> | undefined;
+  onVisible: MouseEventHandler<HTMLButtonElement> | undefined;
+  onShow: () => void;
+}> = (props) => {
   type Column = {
     Header: string;
     accessor: string;
   };
 
+  const [tableData, setTableData] = useState([]);
+
+  const { data: apiResponse, isLoading, isError, error } = useQuery("name", fetchData);
+
+  useEffect(() => {
+    if (apiResponse?.data) {
+      console.log(apiResponse.data);
+      const dataArray = Object.values(apiResponse.data)
+      setTableData(dataArray);
+    }
+  }, [apiResponse]);
+
   const columns: Column[] = useMemo(() => COLUMNS, []);
-  const data = useMemo(() => MOCK_DATA, []);
+  const data = useMemo(() => tableData, [tableData]);
   const pageSize = 10;
 
   const tableInstance = useTable(
     {
-      columns: columns,
+      columns,
       data,
       initialState: {},
       pageCount: Math.ceil(data.length / pageSize),
@@ -43,6 +63,13 @@ const BasicTable: React.FC<{ onShow: () => void }> = (props) => {
     previousPage,
     state: { pageIndex },
   }: any = tableInstance;
+
+  if (isLoading) {
+    return <p>Loading....</p>;
+  }
+  if(isError){
+    return <p>{error.message}</p>
+  }
 
   return (
     <div className="table-container">
@@ -103,7 +130,7 @@ const BasicTable: React.FC<{ onShow: () => void }> = (props) => {
                       <td {...cell.getCellProps()} className="img-name">
                         <div className="img-container">
                           <img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgWy3DLSoDNZxaoOiVo3G9I7-fXtRAztlpB8YtYejl&s"
+                            src={cell.row.original.dp ? `${cell.row.original.dp}` : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-yZLjRO-cckbWa-SF-9ikN42WHpRkF_-j0BS-zEm6&s'}
                             alt="User"
                           />
                         </div>
@@ -117,10 +144,10 @@ const BasicTable: React.FC<{ onShow: () => void }> = (props) => {
                   }
                 })}
                 <td className="icon-container">
-                  <button className="delete">
+                  <button className="delete" onClick={props.onVisible}>
                     <RiDeleteBin6Line />
                   </button>
-                  <button className="edit">
+                  <button className="edit" onClick={props.onEdit}>
                     <FiEdit2 />
                   </button>
                 </td>

@@ -1,0 +1,35 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.heading h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+.btn_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+.btn_container .confirm {
+  padding: 4px 8px;
+  font-size: 1rem;
+  background-color: rgb(255, 208, 0);
+  border: 2px solid white;
+  cursor: pointer;
+  border-radius: 8px;
+}
+.btn_container .cancel {
+  padding: 4px 8px;
+  font-size: 1rem;
+  background-color: transparent;
+  border: 2px solid rgb(255, 208, 0);
+  cursor: pointer;
+  border-radius: 8px;
+}
