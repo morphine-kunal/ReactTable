@@ -8,7 +8,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit2 } from "react-icons/fi";
 
-const BasicTable = () => {
+const BasicTable = (props) => {
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
   const pageSize = 10;
@@ -55,7 +55,7 @@ const BasicTable = () => {
             </span>{" "}
             Download CSV
           </button>
-          <button className="addUser-btn">
+          <button className="addUser-btn" onClick={props.onShow}>
             <span>
               <AiOutlinePlus className="plus" />
             </span>{" "}
