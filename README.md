@@ -39,32 +39,45 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+# Employee Management Web App
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This web app allows you to manage employees in a company. It provides a table view of employees with their profile picture, name, email, active status, role, and last login date. You can perform various actions such as adding a new user, deleting a user, and editing user details.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Technologies Used
 
-### Code Splitting
+- React
+- React-Table
+- React-Query
+- Axios
+- Typescript
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Features
 
-### Analyzing the Bundle Size
+- Display a table of employees with their details.
+- Add a new user using the "Add User" button.
+- Edit the details of an existing user using the "Edit icon in each row.
+- Delete a user from the table using the Dustbin icon in each row
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Installation
 
-### Making a Progressive Web App
+1. Clone the repository: git clone https://github.com/your/repository.git
+2. Install the dependencies: npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+## Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+1. Start the development server: npm start
 
-### Deployment
+2. Open your browser and navigate to `http://localhost:3000` to access the web app.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## API Integration
 
-### `npm run build` fails to minify
+1. Make sure you have a backend API set up to handle the CRUD operations for managing employees.
+2. Update the API endpoint in the code to match your backend server.
+3. Modify the code in the relevant components(e.g. AddUserForm, EditUserForm) to make API requests using Axios and React-Query.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contributing
+
+Contributions are welcome! If you find any issues or have suggestions for improvement, please open an issue or submit a pull request.
+
+
