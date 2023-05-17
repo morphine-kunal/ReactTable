@@ -48,7 +48,7 @@ const AddProfileForm: React.FC<AddProfileFormProps> = (props) => {
         role: enteredRole,
         status: enteredStatus || "invited",
         dp: selectedImage,
-        Last_login: enterdDate || "04/05/2023",
+        Last_login: enterdDate || "--------",
       };
 
       console.log(user);

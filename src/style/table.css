@@ -164,6 +164,37 @@ table th {
   border: none;
   cursor: pointer;
 }
-.delete{
+.delete {
   margin-left: 15px;
+}
+.active {
+  font-size: 1rem;
+  margin-right: 5rem;
+  border-radius: 5px;
+  padding: 2px 3px;
+  color: green;
+  font-weight: 500;
+}
+.active::before {
+  content: "•";
+  color: green;
+  margin-right: 3px;
+}
+.invited {
+  font-size: 1rem;
+  margin-right: 5rem;
+  border-radius: 5px;
+  padding: 2px 3px;
+  color: #ccc;
+  font-weight: 500;
+}
+.invited::before{
+  content: "•";
+  color: #ccc;
+  margin-right: 3px;
+}
+.email{
+  font-size: 0.8rem;
+  font-weight: lighter;
+  color: #7e7e7e;
 }

@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useMemo, useState, useEffect } from "react";
+import React, { MouseEventHandler, useMemo, useEffect, useState } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
 import { COLUMNS } from "./Columns.ts";
 import "../style/table.css";
@@ -9,10 +9,12 @@ import { FiEdit2 } from "react-icons/fi";
 import axios from "axios";
 import { useQuery } from "react-query";
 
-const fetchData = () =>
-  axios.get("https://users-edbd4-default-rtdb.firebaseio.com/users.json");
-
-
+const fetchData = async () => {
+  const response = await axios.get(
+    "https://users-edbd4-default-rtdb.firebaseio.com/users.json"
+  );
+  return response.data;
+};
 
 const BasicTable: React.FC<{
   onEdit: MouseEventHandler<HTMLButtonElement> | undefined;
@@ -31,30 +33,31 @@ const BasicTable: React.FC<{
     isLoading,
     isError,
     error,
-  } = useQuery("name", fetchData);
+  } = useQuery("users", fetchData);
 
   useEffect(() => {
-    if (apiResponse?.data) {
-      console.log(apiResponse.data);
-      const dataArray = Object.values(apiResponse.data);
-      setTableData(dataArray);
+    if (apiResponse) {
+      const loadedUsers = Object.keys(apiResponse).map((key) => {
+        const user = apiResponse[key];
+        return {
+          id: key,
+          name: user.name,
+          status: user.status,
+          role: user.role,
+          dp: user.dp,
+          Last_login: user.Last_login,
+          email: user.email,
+        };
+      });
+
+      setTableData(loadedUsers);
     }
-  }, [fetchData, apiResponse?.data]);
+  }, [apiResponse]);
 
   const columns: Column[] = useMemo(() => COLUMNS, []);
   const data = useMemo(() => tableData, [tableData]);
   const pageSize = 10;
 
-  const tableInstance = useTable(
-    {
-      columns,
-      data,
-      initialState: {},
-      pageCount: Math.ceil(data.length / pageSize),
-    },
-    useSortBy,
-    usePagination
-  );
   const {
     getTableProps,
     getTableBodyProps,
@@ -68,7 +71,16 @@ const BasicTable: React.FC<{
     canPreviousPage,
     previousPage,
     state: { pageIndex },
-  }: any = tableInstance;
+  } = useTable(
+    {
+      columns,
+      data,
+      initialState: { pageIndex: 0 },
+      pageCount: Math.ceil(data.length / pageSize),
+    },
+    useSortBy,
+    usePagination
+  );
 
   if (isLoading) {
     return <p>Loading....</p>;
@@ -104,9 +116,9 @@ const BasicTable: React.FC<{
       </div>
       <table {...getTableProps()}>
         <thead>
-          {headerGroups.map((headerGroup:any) => (
+          {headerGroups.map((headerGroup: any) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column:any) => (
+              {headerGroup.headers.map((column: any) => (
                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {column.render("Header")} &nbsp;
                   <span>
@@ -126,11 +138,12 @@ const BasicTable: React.FC<{
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {page.map((row) => {
+          {page.map((row: any) => {
             prepareRow(row);
+            const { id } = row.original;
             return (
               <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
+                {row.cells.map((cell: any) => {
                   if (cell.column.id === "name") {
                     return (
                       <td {...cell.getCellProps()} className="img-name">
@@ -144,20 +157,37 @@ const BasicTable: React.FC<{
                             alt="User"
                           />
                         </div>
-                        {cell.render("Cell")}
+                        <div>
+                          {cell.render("Cell")}
+                          <div className="email">{cell.row.original.email}</div>
+                        </div>
                       </td>
                     );
                   } else {
                     return (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      <td
+                        {...cell.getCellProps()}
+                        className={
+                          cell.column.id === "status"
+                            ? cell.value === "active"
+                              ? "active"
+                              : "invited"
+                            : ""
+                        }
+                      >
+                        {cell.render("Cell")}
+                      </td>
                     );
                   }
                 })}
                 <td className="icon-container">
-                  <button className="delete" onClick={props.onVisible}>
+                  <button
+                    className="delete"
+                    onClick={() => props.onVisible(id)}
+                  >
                     <RiDeleteBin6Line />
                   </button>
-                  <button className="edit" onClick={props.onEdit}>
+                  <button className="edit" onClick={() => props.onEdit(id)}>
                     <FiEdit2 />
                   </button>
                 </td>

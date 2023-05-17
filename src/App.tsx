@@ -13,6 +13,7 @@ function App() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [shoeDelete, setShowDelete] = useState(false);
+  const [selectedId, setSelectedId] = useState("");
 
   const showAddFormHandler = () => {
     setShowAddForm(true);
@@ -22,14 +23,16 @@ function App() {
     setShowAddForm(false);
   };
 
-  const showUpdateHandler = () => {
+  const showUpdateHandler = (id: string) => {
+    setSelectedId(id);
     setShowUpdateForm(true);
   };
   const hideUpdateFormHandler = () => {
     setShowUpdateForm(false);
   };
 
-  const showDeleteHandler = () => {
+  const showDeleteHandler = (id: string) => {
+    setSelectedId(id);
     setShowDelete(true);
   };
   const hideDeleteHandler = () => {
@@ -39,8 +42,8 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <div>
-        {shoeDelete && <DeleteUser onHide={hideDeleteHandler} />}
-        {showUpdateForm && <UpdateUserForm onHide={hideUpdateFormHandler} />}
+        {shoeDelete && <DeleteUser id={selectedId} onHide={hideDeleteHandler} />}
+        {showUpdateForm && <UpdateUserForm  id={selectedId} onHide={hideUpdateFormHandler} />}
         {showAddForm && <AddProfileForm onClose={hideAddFormHandler} />}
         <Header />
         <BasicTable
