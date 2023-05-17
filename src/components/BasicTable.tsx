@@ -100,18 +100,22 @@ const BasicTable: React.FC<{
           <p>Manage your team members and their account permission here.</p>
         </div>
         <div className="btn-container">
-          <button className="download-btn">
-            <span>
-              <BsCloudDownload className="cloud" />
-            </span>{" "}
-            Download CSV
-          </button>
-          <button className="addUser-btn" onClick={props.onShow}>
-            <span>
-              <AiOutlinePlus className="plus" />
-            </span>{" "}
-            Add user
-          </button>
+          <div>
+            <button className="download-btn">
+              <span>
+                <BsCloudDownload className="cloud" />
+              </span>{" "}
+              Download CSV
+            </button>
+          </div>
+          <div>
+            <button className="addUser-btn" onClick={props.onShow}>
+              <span>
+                <AiOutlinePlus className="plus" />
+              </span>{" "}
+              Add user
+            </button>
+          </div>
         </div>
       </div>
       <table {...getTableProps()}>
@@ -205,7 +209,7 @@ const BasicTable: React.FC<{
           <span>&larr;</span> Previous
         </button>
         <div>
-          {pageOptions.map((pageNum) => (
+          {pageOptions.map((pageNum: number) => (
             <button
               key={pageNum}
               onClick={() => gotoPage(pageNum)}

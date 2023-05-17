@@ -38,6 +38,7 @@
 }
 .btn-container {
   margin-right: 12px;
+  display: flex;
 }
 
 .download-btn {
@@ -197,4 +198,55 @@ table th {
   font-size: 0.8rem;
   font-weight: lighter;
   color: #7e7e7e;
+}
+
+@media all and (max-width: 682px){
+  .btn-container{
+    margin-right: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+  .download-btn{
+    padding: 2px 4px;
+  }
+  td{
+    padding: 0.3rem 0.6rem;
+  }
+}
+@media all and (max-width: 550px){
+  .table-heading{
+    margin-top: 5px;
+  }
+  td{
+    padding: 0;
+    font-size: 0.5rem;
+  }
+  .active{
+    font-size: 0.5rem;
+  }
+  .invited{
+    font-size: 0.5rem;
+  }
+  .delete, .edit{
+    width: 20px;
+    height: 20px;
+  }
+  .icon-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  table th{
+    font-size: 0.5rem;
+  }
+  .img-container{
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+  }
+  .email{
+    font-size: 0.4rem;
+  }
 }
