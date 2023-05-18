@@ -82,6 +82,7 @@ const UpdateUserForm: React.FC<UpdateUserFormProps> = (props) => {
               ref={nameInputRef}
               defaultValue={editedName || props.name}
               onChange={(event) => setEditedName(event.target.value)}
+              required
             />
           </div>
           <div className={classes.role_holder}>
@@ -92,6 +93,7 @@ const UpdateUserForm: React.FC<UpdateUserFormProps> = (props) => {
               ref={roleInputRef}
               defaultValue={editedRole || props.role}
               onChange={(event) => setEditedRole(event.target.value)}
+              required
             />
           </div>
           <div className={classes.btn_holder}>
